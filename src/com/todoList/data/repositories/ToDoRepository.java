@@ -1,4 +1,10 @@
-package com.toDoList.data.repositories;
+package com.todoList.data.repositories;
 
-public class ToDoRepository {
+import com.todoList.data.models.ToDo;
+import org.springframework.data.mongodb.repository.MongoRepository;
+
+public interface ToDoRepository extends MongoRepository<ToDo, String> {
+
+
+
 }

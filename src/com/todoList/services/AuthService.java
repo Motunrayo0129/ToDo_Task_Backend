@@ -1,38 +1,65 @@
 package com.todoList.services;
 
-import com.todoList.data.repositories.RegistrationRepository;
+import com.todoList.data.models.User;
+import com.todoList.data.repositories.UserRepository;
 import com.todoList.dtos.requests.LoginRequest;
+import com.todoList.dtos.requests.RegistrationRequest;
 import com.todoList.dtos.responses.LoginResponse;
-import com.todoList.data.models.Registration;
-
-public class LoginService {
-
-    private RegistrationRepository registrationRepository;
-
-    public LoginResponse login(LoginRequest loginRequest) {
-        Registration register = new Registration();
-
-        register
+import com.todoList.dtos.responses.RegistrationResponse;
+import com.todoList.exceptions.InvalidLoginResponse;
+import com.todoList.exceptions.InvalidRegistrationException;
+import com.todoList.utils.HashPassword;
+import org.springframework.stereotype.Service;
 
 
-        return null;
+@Service
+public class AuthService {
 
+    private final UserRepository userRepository;
+
+    public AuthService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+
+    public RegistrationResponse register(RegistrationRequest request) {
+        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
+            throw new InvalidRegistrationException("Email already exists");
+        }
+
+        String hashedPassword = HashPassword.hashPassword(request.getPassword());
+
+        User user = new User();
+        user.setFullName(request.getFullName());
+        user.setPassword(hashedPassword);
+        user.setFullName(request.getFullName());
+        user.setId(request.getId());
+        user.setUserName(request.getUserName());
+        user.setEmail(request.getEmail());
+
+        userRepository.save(user);
+
+        RegistrationResponse response =new RegistrationResponse();
+        response.setUserId(user.getId());
+        response.setMessage("Registration Successful");
+        return response;
+    }
+
+
+    public LoginResponse login(LoginRequest request) {
+        User user = userRepository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (!HashPassword.verifyPassword(request.getPassword(), user.getPassword())) {
+            throw new InvalidLoginResponse("Invalid credentials");
+        }
+
+       LoginResponse response = new LoginResponse();
+        response.setUserId(user.getId());
+        response.setMessage("Login Successful");
+
+        return response;
     }
 
 
 }
-
-
-
-//public AddDrugResponse addDrugResponse(AddDrugRequestDto requestDto) {
-//    Drug drug = new Drug();
-//    drug.setCategory(requestDto.getDrugCategory());
-//    drug.setTypes(requestDto.getDrugTypes());
-//    drug.setDrugName(requestDto.getDrugName());
-//    drug.setQuantity(requestDto.getQuantity());
-//    drug.setManufactureDate(requestDto.getManufactureDate());
-//
-//    LocalDate expiryDate = requestDto.getManufactureDate().plusMonths(6);
-//    drug.setExpiryDate(expiryDate);
-//
-//    Drug saved = drugRepository.save(drug);

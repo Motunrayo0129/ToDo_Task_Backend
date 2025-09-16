@@ -1,14 +1,13 @@
 package com.todoList.data.repositories;
 
-import com.todoList.data.models.Registration;
+import com.todoList.data.models.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-public interface RegistrationRepository extends MongoRepository<Registration, String> {
-
-    Optional<Registration> findByEmail(String email);
-    void deleteByEmail(String email);
-    Optional<Registration> findByUserName(String userName);
-
+@Repository
+public interface UserRepository extends MongoRepository<User, String> {
+    Optional<User> findByEmail(String email);
+    Optional<User> findById(String id);
 }

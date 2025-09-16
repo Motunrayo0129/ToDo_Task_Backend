@@ -1,7 +1,7 @@
 package com.todoList.exceptions;
 
-public class InvalidNameException extends RuntimeException {
-    public InvalidNameException(String message) {
+public class InvalidRegistrationException extends RuntimeException {
+    public InvalidRegistrationException(String message) {
         super(message);
     }
 }
