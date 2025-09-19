@@ -2,7 +2,6 @@ package com.todoList.services;
 
 import com.todoList.data.models.ToDo;
 import com.todoList.data.repositories.ToDoRepository;
-import com.todoList.data.repositories.UserRepository;
 import com.todoList.dtos.requests.TaskRequest;
 import com.todoList.dtos.responses.TaskResponse;
 import com.todoList.exceptions.TaskNotFoundException;
@@ -15,23 +14,19 @@ import java.time.LocalDateTime;
 @Service
 public class TaskServices {
    private final ToDoRepository toDoRepository;
-   private final UserRepository userRepository;
-   public TaskServices(ToDoRepository toDoRepository, UserRepository userRepository) {
+   public TaskServices(ToDoRepository toDoRepository) {
        this.toDoRepository = toDoRepository;
-       this.userRepository = userRepository;
+
    }
 
-   public TaskResponse addTask(TaskRequest request, String userId) {
-       if (!userRepository.existsById(userId)) {
-           throw new RuntimeException("User not found");
-       }
+   public TaskResponse addTask(TaskRequest request) {
 
        ToDo task = new ToDo();
        task.setTitle(request.getTitle());
        task.setPriority(request.getPriority());
        task.setDateCompleted(null);
        task.setCompleted(false);
-       task.setUserId(userId);
+
 
        ToDo savedTask = toDoRepository.save(task);
 

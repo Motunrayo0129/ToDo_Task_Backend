@@ -17,9 +17,6 @@ public class User {
     @Id
     private String id;
 
-    @NotBlank(message = "Full name required")
-    private String fullName;
-
     @NotBlank(message = "Username required")
     private String userName;
 

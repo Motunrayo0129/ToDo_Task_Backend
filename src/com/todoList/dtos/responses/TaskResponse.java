@@ -15,5 +15,4 @@ public class TaskResponse {
     private boolean isCompleted;
     private Priority priority;
 
-
 }

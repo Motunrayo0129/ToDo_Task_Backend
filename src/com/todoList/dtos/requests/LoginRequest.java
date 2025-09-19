@@ -10,9 +10,6 @@ import lombok.RequiredArgsConstructor;
 
 public class LoginRequest {
 
-    @NotBlank(message = "user name required")
-    private String userName;
-
     @NotBlank(message = "password required")
     private String password;
 

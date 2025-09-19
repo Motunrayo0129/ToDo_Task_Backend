@@ -2,6 +2,7 @@ package com.todoList.controllers;
 
 import com.todoList.dtos.requests.TaskRequest;
 import com.todoList.services.TaskServices;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +18,9 @@ public class TaskController {
 
     @PostMapping("/addTask")
     public ResponseEntity<?> addTask(@RequestBody TaskRequest request){
-        return ResponseEntity.ok(taskServices.addTask(request, request.getUserId()));
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(taskServices.addTask(request));
+
     }
 
     @PutMapping("/editTask/{taskId}")

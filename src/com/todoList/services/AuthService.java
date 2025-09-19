@@ -30,10 +30,7 @@ public class AuthService {
         String hashedPassword = HashPassword.hashPassword(request.getPassword());
 
         User user = new User();
-        user.setFullName(request.getFullName());
         user.setPassword(hashedPassword);
-        user.setFullName(request.getFullName());
-        user.setId(request.getId());
         user.setUserName(request.getUserName());
         user.setEmail(request.getEmail());
 

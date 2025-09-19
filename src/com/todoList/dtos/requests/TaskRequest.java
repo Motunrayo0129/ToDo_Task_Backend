@@ -11,7 +11,5 @@ public class TaskRequest {
     private String title;
     @NotNull(message = "Task priority is required")
     private Priority priority;
-    @NotNull(message = "User id is required from login")
-    private String userId;
 
 }
