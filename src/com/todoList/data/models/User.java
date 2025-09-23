@@ -18,7 +18,7 @@ public class User {
     private String id;
 
     @NotBlank(message = "Username required")
-    private String userName;
+    private String username;
 
     @Email(message = "Invalid email format")
     @NotBlank(message = "Email required")

@@ -9,6 +9,7 @@ import com.todoList.dtos.responses.RegistrationResponse;
 import com.todoList.exceptions.InvalidLoginResponse;
 import com.todoList.exceptions.InvalidRegistrationException;
 import com.todoList.utils.HashPassword;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
@@ -17,6 +18,7 @@ public class AuthService {
 
     private final UserRepository userRepository;
 
+    @Autowired
     public AuthService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -31,13 +33,11 @@ public class AuthService {
 
         User user = new User();
         user.setPassword(hashedPassword);
-        user.setUserName(request.getUserName());
+        user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());
-
         userRepository.save(user);
 
         RegistrationResponse response =new RegistrationResponse();
-        response.setUserId(user.getId());
         response.setMessage("Registration Successful");
         return response;
     }
@@ -52,7 +52,6 @@ public class AuthService {
         }
 
        LoginResponse response = new LoginResponse();
-        response.setUserId(user.getId());
         response.setMessage("Login Successful");
 
         return response;

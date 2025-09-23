@@ -3,8 +3,10 @@ package com.todoList.dtos.requests;
 import com.todoList.data.models.Priority;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
+@Document
 public class TaskRequest {
 
     @NotNull(message = "Task title is required")

@@ -38,7 +38,6 @@ class LoginControllerTest {
     @BeforeEach
     void setUp() {
         registrationRequest = new RegistrationRequest();
-        registrationRequest.setUserName("Tuntun");
         registrationRequest.setPassword("Motunrayo");
         registrationRequest.setEmail("motun@gmail.com");
 
