@@ -38,6 +38,9 @@ public class AuthService {
         userRepository.save(user);
 
         RegistrationResponse response =new RegistrationResponse();
+        response.setUserId(user.getId());
+        response.setUsername(user.getUsername());
+        response.setEmail(user.getEmail());
         response.setMessage("Registration Successful");
         return response;
     }
@@ -51,7 +54,11 @@ public class AuthService {
             throw new InvalidLoginResponse("Invalid credentials");
         }
 
+
        LoginResponse response = new LoginResponse();
+        response.setUserId(user.getId());
+        response.setUsername(user.getUsername());
+        response.setEmail(user.getEmail());
         response.setMessage("Login Successful");
 
         return response;

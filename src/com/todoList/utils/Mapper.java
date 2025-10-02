@@ -14,6 +14,7 @@ public class Mapper {
         response.setTitle(updatedTask.getTitle());
         response.setDateCompleted(updatedTask.getDateCompleted());
         response.setPriority(updatedTask.getPriority());
+        response.setUserId(updatedTask.getUserId());
         response.setDateAdded(LocalDateTime.now());
         response.setCompleted(updatedTask.isCompleted());
 

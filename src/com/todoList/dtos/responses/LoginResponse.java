@@ -8,9 +8,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
 @NoArgsConstructor
-@Document
 public class LoginResponse {
 
+    private String userId;
+    private String username;
+    private String email;
     private String message;
-
 }

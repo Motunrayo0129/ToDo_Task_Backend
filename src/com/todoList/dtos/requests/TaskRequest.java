@@ -9,6 +9,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document
 public class TaskRequest {
 
+
+    private String userId;
     @NotNull(message = "Task title is required")
     private String title;
     @NotNull(message = "Task priority is required")

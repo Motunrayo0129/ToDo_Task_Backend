@@ -7,10 +7,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.LocalDateTime;
 
 @Data
-@Document
 public class TaskResponse {
 
     private String taskId;
+    private String userId;
     private String title;
     private LocalDateTime dateAdded;
     private LocalDateTime dateCompleted;
