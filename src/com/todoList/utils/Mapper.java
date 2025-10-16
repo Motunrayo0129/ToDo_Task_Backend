@@ -3,7 +3,7 @@ package com.todoList.utils;
 import com.todoList.data.models.ToDo;
 import com.todoList.dtos.responses.TaskResponse;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class Mapper {
 
@@ -15,11 +15,12 @@ public class Mapper {
         response.setDateCompleted(updatedTask.getDateCompleted());
         response.setPriority(updatedTask.getPriority());
         response.setUserId(updatedTask.getUserId());
-        response.setDateAdded(LocalDateTime.now());
+        response.setDateAdded(updatedTask.getDateAdded());
         response.setCompleted(updatedTask.isCompleted());
 
         return response;
 
     }
+
 
 }

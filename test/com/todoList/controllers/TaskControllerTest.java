@@ -50,7 +50,7 @@ class TaskControllerTest {
         response = new TaskResponse();
         response.setTaskId("123456");
         response.setTitle("Test Task");
-        response.setDateAdded(LocalDateTime.now());
+//        response.setDateAdded();
         response.setCompleted(false);
         response.setDateCompleted(null);
         response.setPriority(Priority.HIGH);
@@ -58,16 +58,13 @@ class TaskControllerTest {
 
     @Test
     void addTask() throws Exception {
-        when(taskServices.addTask(any(TaskRequest.class)))
+        when(taskServices.addTask(any(TaskRequest.class), any(String.class)))
                 .thenReturn(response);
-
-        mockMvc.perform(post("/api/tasks/addTask")
+        mockMvc.perform(post("/api/tasks/addTask/123456")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isCreated())
                 .andExpect(content().json(objectMapper.writeValueAsString(response)));
-
-
     }
 
     @Test
@@ -90,7 +87,7 @@ class TaskControllerTest {
         markAsComplete = new TaskResponse();
         markAsComplete.setTaskId("123456");
         markAsComplete.setTitle("Test Task");
-        markAsComplete.setDateAdded(LocalDateTime.now());
+//        markAsComplete.setDateAdded();
         markAsComplete.setCompleted(true);
         markAsComplete.setDateCompleted(null);
         markAsComplete.setPriority(Priority.HIGH);
@@ -114,5 +111,15 @@ class TaskControllerTest {
         Mockito.verify(taskServices, Mockito.times                          (1)).deleteTask(taskId);
         Mockito.verifyNoMoreInteractions(taskServices);
 
+    }
+
+    @Test
+    void testEditTask() {
+        String taskId = "123456";
+
+    }
+
+    @Test
+    void getAllTasks() {
     }
 }

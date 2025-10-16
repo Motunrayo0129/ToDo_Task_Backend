@@ -15,32 +15,44 @@ public class TaskController {
     public TaskController(TaskServices taskServices) {
         this.taskServices = taskServices;
     }
-    @PostMapping("/addTask/{userId}")
-    public ResponseEntity<?> addTask(@RequestBody TaskRequest request, @PathVariable String userId) {
+
+    @CrossOrigin(origins = "*")
+    @PostMapping("/addTask")
+    public ResponseEntity<?> addTask(@RequestBody TaskRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(taskServices.addTask(request, userId));
+                .body(taskServices.addTask(request, request.getUserId()));
     }
 
-
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PutMapping("/editTask/{taskId}")
     public ResponseEntity<?> editTask(@RequestBody TaskRequest request, @PathVariable String taskId){
         return ResponseEntity.ok(taskServices.editTask(request, taskId));
     }
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PutMapping("/updateTask/{taskId}")
     public ResponseEntity<?> updateTask(@RequestBody TaskRequest request, @PathVariable String taskId){
         return ResponseEntity.ok(taskServices.updateTask(taskId, request));
     }
 
+    @CrossOrigin(origins = "*")
     @PatchMapping("/markAsCompleted/{taskId}")
     public ResponseEntity<?> markAsCompleted(@PathVariable String taskId){
         return ResponseEntity.ok(taskServices.markAsCompleted(taskId));
     }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @PatchMapping("/unmarkAsCompleted/{taskId}")
+    public ResponseEntity<?> unmarkAsCompleted(@PathVariable String taskId){
+        return ResponseEntity.ok(taskServices.unmarkAsCompleted(taskId));
+    }
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/allTask/{userId}")
     public ResponseEntity<?> getAllTasks(@PathVariable String userId){
         return ResponseEntity.ok(taskServices.getAllTasks(userId));
     }
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @DeleteMapping("/deleteTask/{taskId}")
     public ResponseEntity<?> deleteTask(@PathVariable String taskId){
         taskServices.deleteTask(taskId);

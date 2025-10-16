@@ -21,6 +21,7 @@ public class LoginController {
         this.authService = authService;
     }
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping("/register")
     public ResponseEntity<?> registration(@Valid @RequestBody RegistrationRequest request) {
         try {

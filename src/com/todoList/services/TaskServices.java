@@ -12,10 +12,9 @@ import com.todoList.utils.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.util.Arrays;
+import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
+
 
 
 @Service
@@ -55,8 +54,6 @@ public class TaskServices {
 
        userRepository.save(user);
 
-
-       System.out.println(savedTask);
        return Mapper.mapUserToUserResponse(savedTask);
 
    }
@@ -79,7 +76,7 @@ public class TaskServices {
        ToDo task = toDoRepository.findById(taskId)
                .orElseThrow(() -> new TaskNotFoundException("Task not found"));
        task.setCompleted(true);
-       task.setDateCompleted(LocalDateTime.now());
+       task.setDateCompleted(LocalDate.now());
 
        ToDo updatedTask = toDoRepository.save(task);
 
@@ -87,9 +84,19 @@ public class TaskServices {
 
    }
 
+   public TaskResponse unmarkAsCompleted(String taskId){
+      ToDo task = toDoRepository.findById(taskId)
+              .orElseThrow(() -> new TaskNotFoundException("Task not found"));
+      task.setCompleted(false);
+      task.setDateCompleted(null);
+
+      ToDo updatedTask = toDoRepository.save(task);
+
+      return Mapper.mapUserToUserResponse(updatedTask);
+   }
+
    public List<TaskResponse> getAllTasks(String userId) {
        List<ToDo> tasks = toDoRepository.findByUserId(userId);
-       System.out.println(tasks.toString());
        return tasks.stream().map(Mapper::mapUserToUserResponse).toList();
 
    }
